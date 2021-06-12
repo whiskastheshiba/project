@@ -80,6 +80,6 @@ class FavAccommodationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
     }
 }
