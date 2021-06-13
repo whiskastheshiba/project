@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use app\Models\Accommodation;
+use App\Models\Accommodation;
 use App\Models\AccommodationFeedback;
 
 
@@ -17,8 +17,10 @@ class AccommodationController extends Controller
      */
     public function index(request $request)
     {
-        $accommodations=Accommodation::orderBy('accommodation_name')->get;
-        $acc_feedback=AccommodationFeedback::orderBy('accommodation_name')->get;
+        $accommodations= Accommodation::all();
+        
+
+        
         $user = Auth::user();
 
         /*Price change*/
@@ -27,9 +29,7 @@ class AccommodationController extends Controller
         if($request->tmp==2) $accommodations = $accommodations->sortByDesc('accommodation_price');}
         else $request->tmp=0;
 
-        return view('Accommodation', array('acc_feedback'=>$acc_feedback, 'tmp'=>$request->tmp));
-
-
+        return view('accommodations',compact('accommodations'), array( 'tmp'=>$request->tmp));
     }
 
     /**
@@ -50,17 +50,7 @@ class AccommodationController extends Controller
      */
     public function store(Request $request)
     {
-        $accommodations=Accommodation::orderBy('accommodation_name')->get;
-        $acc_feedback=AccommodationFeedback::orderBy('accommodation_name')->get;
-        $user = Auth::user();
-
-        /*Price change*/
-        if(!is_null($request->tmp)){
-        if($request->tmp==1) $accommodations = $accommodations->sortBy('accommodation_price');
-        if($request->tmp==2) $accommodations = $accommodations->sortByDesc('accommodation_price');}
-        else $request->tmp=0;
-
-        return view('Accommodation', array('acc_feedback'=>$acc_feedback, 'tmp'=>$request->tmp));
+        
     }
 
     /**

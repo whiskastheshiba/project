@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use Mail;
-use Illuminate\Support\Str;
+
 class RegisterController extends Controller
 {
     /*
@@ -62,7 +60,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -72,41 +70,4 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-    
-//    protected function register(Request $request)
-//    {
-//        $input = $request->all();
-//        $validator = $this->validator($input);
-//        
-//        if($validator->passes()){
-//            $data = $this->create($input)->toArray();
-//            
-//            $data['token'] = str_random(25);
-//            
-//            $user = User::find($data['id']);
-//           
-//            $user->token = $data['token'];
-//            $user->save();
-//            
-//            Mail::send('mails.confirmation',$data, function($message) use ($data){
-//                $message->to($data['email']);
-//                $message->subject('Registration confirmation');
-//            });
-//            return redirect(route('login'))->with('status','Confirmation email has been send, pleas check your acccount');   
-//        }
-//        return redirect(route('login'))->with('status'.$validator->errors());  
-//    }
-//    
-//    public function confirmation($token){
-//        $user = User::where('token',$token)->first();
-//        
-//        if(!is_null($user)){
-//            $user->confirmed = 1;
-//            $user->token='';
-//            $user->save();
-//            return redirect(route('login'))->with('status'.'    y   our activation is completed :)');  
-//        }
-//        return redirect(route('login'))->with('status'.'Something wrong');  
-//    }
-    
 }
