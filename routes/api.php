@@ -14,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes(['verify' => true]);
+Route::get('/home', 'HomeController@index')->middleware('verified');
+Route::get('users/confirmation/{token}', 'Auth\RegisterController@confirmation')->name('confirmation');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
