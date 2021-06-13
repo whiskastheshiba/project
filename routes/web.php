@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccommodationController;
+use App\Http\Controllers\VacationPackagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ use App\Http\Controllers\AccommodationController;
 
 Route::redirect('/', 'accommodation');
 Route::resource('accommodation', AccommodationController::class);
+Auth::routes();
+
+Route::redirect('/', 'vacation');
+Route::resource('vacation', VacationPackagesController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
