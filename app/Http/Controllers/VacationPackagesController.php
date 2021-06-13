@@ -17,8 +17,7 @@ class VacationPackagesController extends Controller
      */
     public function index()
     {
-        $vacation=VacationPackages::orderBy('package_name')->get;
-        $vac_feedback=PackagesFeedback::orderBy('package_name')->get;
+        $vacations= VacationPackages::all();
         $user = Auth::user();
 
         /*Price change*/
@@ -27,7 +26,7 @@ class VacationPackagesController extends Controller
         if($request->tmp==2) $vacation = $vacation->sortByDesc('package_price');}
         else $request->tmp=0;
 
-        return view('vacation', array('vac_feedback'=>$feedback, 'tmp'=>$request->tmp));
+        return view('vacations',compact('vacations'), array('tmp'=>$request->tmp));
     }
 
     /**
@@ -48,17 +47,7 @@ class VacationPackagesController extends Controller
      */
     public function store(Request $request)
     {
-        $vacation=VacationPackages::orderBy('package_name')->get;
-        $vac_feedback=PackagesFeedback::orderBy('package_name')->get;
-        $user = Auth::user();
-
-        /*Price change*/
-        if(!is_null($request->tmp)){
-        if($request->tmp==1) $vacation = $vacation->sortBy('package_price');
-        if($request->tmp==2) $vacation = $vacation->sortByDesc('package_price');}
-        else $request->tmp=0;
-
-        return view('vacation', array('vac_feedback'=>$feedback, 'tmp'=>$request->tmp));
+        //
     }
 
     /**
