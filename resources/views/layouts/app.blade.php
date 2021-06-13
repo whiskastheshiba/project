@@ -31,7 +31,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link" href="{{ url('/') }}">{{ __('home') }} </a></li>
+                        <li><a class="nav-link" href="{{ url('/accommodation') }}">{{ __('accommodation') }} </a></li>
+                        <li><a class="nav-link" href="{{ url('/vacation') }}">{{ __('vacation') }} </a></li>
                         <li><a class="nav-link" href="{{ url('/about') }}">{{ __('about') }}</a></li>
 
                     </ul>
