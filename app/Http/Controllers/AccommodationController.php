@@ -18,9 +18,9 @@ class AccommodationController extends Controller
     public function index(request $request)
     {
         $accommodations= Accommodation::all();
-        
 
-        
+
+
         $user = Auth::user();
 
         /*Price change*/
@@ -50,7 +50,7 @@ class AccommodationController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -97,4 +97,5 @@ class AccommodationController extends Controller
     {
         //
     }
+
 }

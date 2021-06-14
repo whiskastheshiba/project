@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use app\Models\VacationPackages;
+use App\Models\VacationPackages;
 use App\Models\PackageFeedback;
 
 
@@ -15,7 +15,7 @@ class VacationPackagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(request $request)
     {
         $vacations= VacationPackages::all();
         $user = Auth::user();

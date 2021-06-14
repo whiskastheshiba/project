@@ -20,7 +20,8 @@ class CreateAccommodationsTable extends Migration
             $table->string('accommodation_city',50);
             $table->string('accommodation_address',150);
             $table->decimal('accommodation_price');
-            $table->string('accommmodation_description',2000);
+            $table->string('accommodation_description',2000);
+            $table->string('accommodation_tags',2000);
         });
     }
 

@@ -23,6 +23,7 @@ class CreateVacationPackagesTable extends Migration
             $table->date('end_date');
             $table->decimal('package_price');
             $table->string('package_description',2000);
+            $table->string('package_tags',2000);
         });
     }
 
