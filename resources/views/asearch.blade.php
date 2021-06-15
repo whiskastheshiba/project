@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('content')
 <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" >
@@ -88,7 +87,6 @@ figure figcaption{
   -webkit-transform: scale(1.01); /* Safari 3-8 */
   transform: scale(1.01);
 }
-
 </style>
 </head>
 <body>
@@ -98,7 +96,7 @@ figure figcaption{
         <form action="/search" method="POST" role="search">
             {{ csrf_field() }}
             <div class="input-group">
-              <label for="fname">Search by tags:</label>
+              <label for="fname">Search by tags: </label>
                 <input type="text" class="form-control" name="q"
                     placeholder="#3guests"> <span class="input-group-btn">
                     <button type="submit" class="btn btn-default">
@@ -109,10 +107,10 @@ figure figcaption{
         </form>
 </div>
 </div>
-        @if (count($accommodations)==0)
-<p color='red'> Unfortunately, there are no accommodations available for now!</p>
+        @if (count($details)==0)
+<p color='red'> Unfortunately, there are no accommodations available with that tag now!</p>
 @else
-@foreach ($accommodations as $accommodation)
+@foreach ($details as $accommodation)
 <div class="gallery">
   <div class="zoom">
     <figure>

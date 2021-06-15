@@ -104,7 +104,7 @@ figure figcaption{
                     </button>
                 </span>
             </div>
-        </form>
+      </form>
 </div>
 </div>
         @if (count($vacations)==0)
