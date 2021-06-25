@@ -1,13 +1,20 @@
 
 @extends('layouts.app')
 @section('content')
+<a href="accommodations.blade.php"></a>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" >
 <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <style>
 body{
-background-color: white;
-
+  background-color: #fff;
+                  color: #636b6f;
+                  font-family: 'Nunito', sans-serif;
+                  font-weight: 200;
+                  height: 100vh;
+                  margin: 0;
+                  box-sizing: border-box;
 }
 .gallery{
   display: flex;
@@ -40,7 +47,6 @@ figure figcaption{
   margin-right: auto;
   width: 40%;
 }
-
 .button {
   border-radius: 4px;
   background-color: red;
@@ -54,14 +60,12 @@ figure figcaption{
   cursor: pointer;
   margin: 2px;
 }
-
 .button span {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.2s;
 }
-
 .button span:after {
   content: '\00bb';
   position: absolute;
@@ -70,11 +74,9 @@ figure figcaption{
   right: -10px;
   transition: 0.5s;
 }
-
 .button:hover span {
   padding-right: 15px;
 }
-
 .button:hover span:after {
   opacity: 1;
   right: 0;
@@ -83,121 +85,167 @@ figure figcaption{
   transition: transform .2s;
   margin: 0 auto;
 }
-
 .zoom:hover {
   -webkit-transform: scale(1.01); /* Safari 3-8 */
   transform: scale(1.01);
 }
-
+.filter{
+  padding-top: 25px;
+}
+.table{
+  border-style: solid;
+  border-color: black;
+  background-color: #E0FFFF;
+}
+.sb{
+  background-color: red;
+  border-radius: 50%;
+  border-color: grey;
+  padding: 15px;
+  box-shadow: 0 3px #999;
+  text-align: center;
+  color: white;
+}
+.sb:hover {background-color: #3e8e41}
+.sb:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.filter{
+  font-size: 16px;
+}
+.tags{
+margin-left: 21%;
+padding-top: 30px;
+}
+#input{
+  padding-right: 410px;
+}
+#searchfor{
+  font-size:18px;
+}
 </style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <img src="{{  url('https://www.hawaii-guide.com/images/made/kauai-accommodations_1_2100_750_85_s_c1_c_c_0_0.jpg') }}" width="100%" height="300px" alt="foto" >
+<div class="tags">
         <form action="/search" method="POST" role="search">
             {{ csrf_field() }}
             <div class="input-group">
-              <label for="fname">Search by tags:</label>
-                <input type="text" class="form-control" name="q"
-                    placeholder="#3guests"> <span class="input-group-btn">
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
+              <label><b>{{ __('messages.Search_by_tags')}}: </b></label>
+                <input id="input" type="text" name="p" placeholder="#3guests">
+              </div>
             </div>
         </form>
 </div>
+<div class="filter">
+<table class="table">
+  <th style = "text-transform:uppercase;"><center>{{ __('messages.Filter_box')}}</center></th>
+  <tr><td>
+    <form action="/search1" method="POST" role="search">
+       {{ csrf_field() }}
+       <div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+       <div class="form-group">
+         <span>{{ __('messages.Location')}}:<span>
+          <select class="selectpicker search-fields" name="location">
+            <option value=""></option>
+             <option value="Bīriņi"> Bīriņi </option>
+             <option value="Saulkrasti"> Saulkrasti</option>
+             <option value="Liepāja"> Liepāja </option>
+             <option value="Limbažu novads"> Limbažu novads </option>
+             <option value="Saulgoži"> Saulgoži </option>
+             <option value="Saulgoži"> Sigulda </option>
+             <option value="Brenguļu pagasts"> Brenguļu pagasts </option>
+             <option value="Salacgrīvas novads"> Salacgrīvas novads </option>
+             <option value="Vecžīguri"> Vecžīguri </option>
+             <option value="Ventspils"> Ventspils </option>
+          </select>
+       </div>
+    </div>
+</td></tr>
+  <div class="input-group">
+  <tr><td>{{ __('messages.Start_Date')}}: <input type="date" name="s"> </td></tr>
+  <span class="input-group-btn">
+      </span>
+    </div>
+    <div class="input-group">
+<tr><td>{{ __('messages.Start_Date')}}: <input type="date" name="e"> </td></tr>
+    <span class="input-group-btn">
+        </span>
+      </div>
+<div class="input-group">
+  <tr><td>{{ __('messages.Price')}}:<input type="text" placeholder="30" name="aprice"></td></tr>
+  <span class="input-group-btn">
+      </span>
+    </div>
+  <tr><td>{{ __('messages.Accommodation_type')}}:
+          <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+             <div class="form-group">
+                <select class="selectpicker search-fields" name="accommodation_type">
+                  <option value=""></option>
+                   <option value="Hotel"> Hotel </option>
+                   <option value="Apartments"> Apartments </option>
+                   <option value="Bed & Breakfasts"> Bed & Breakfasts </option>
+                   <option value="Homestays"> Homestays </option>
+                   <option value="Residence"> Residence </option>
+                </select>
+             </div>
+          </div>
+        </tr></td>
+       <div class="row p-3">
+          <div class="col-lg-12 col-md-12 col-sm-6 col-12">
+             <div class="form-group">
+                <td><center><button class="search-button">Search</button></div></center>
+             </div>
+          </div>
+       </div>
+    </form>
+  </table>
 </div>
         @if (count($accommodations)==0)
-<p color='red'> Unfortunately, there are no accommodations available for now!</p>
+<p color='red'> {{ __('messages.Unfortunately')}}!</p>
 @else
 @foreach ($accommodations as $accommodation)
 <div class="gallery">
   <div class="zoom">
     <figure>
-    <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-    <img src="{{ url('https://lh5.googleusercontent.com/p/AF1QipN8LC6vPsv4TSHgYM8cQ6Tfe4PjDeW-afWge9nQ=w600-h485-p-k-no') }}" alt="Dizkokiphoto" style="width:180px" style="height:90px">
+    <figcaption><b>{{ $accommodation->accommodation_name }}</b></figcaption>
+    <img src="{{ $accommodation->image }}" alt="accommodation_image" style="width:180px" style="height:90px">
     <figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-    <button id="view" class="button"><span>View</span></button>
+    <center><button id="view" class="button" onclick="showAccommodations({{ $accommodation->id }})"><span>{{ __('messages.View')}}</span></button></center>
     </figure>
     </div>
-    <div class="zoom">
-  <figure>
-    <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-    <img src="{{ url('https://cf.bstatic.com/images/hotel/max1024x768/475/47561092.jpg') }}" alt="pieMaijasphoto" style="width:180px" style="height:90px">
-    <figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-  </figure>
-  </div>
-  <div class="zoom">
-  <figure>
-    <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-    <img src="{{ url('https://www.kundzinusalas.lv/uploads/s8dKNI5y/767x0_2560x0/kundzinu-salas-pirts-maja-zagatas-01.jpg') }}" alt="Baronaaptphoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-  </figure>
-  </div>
-  <div class="zoom">
-    <figure>
-      <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-    <img src="{{ url('https://liepaja.travel/app/uploads/2019/05/dsc08789-800x450.jpg') }}" alt="Kundziniphoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-  </figure>
-  </div>
-  <div class="zoom">
-    <figure>
-      <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-    <img src="{{ url('https://viesunamiem.lv/content/images/object/4794.jpg') }}" alt="Saulgoziphoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-  </figure>
-  </div>
-<div class="zoom">
-<figure>
-<figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-<img src="{{ url('https://lh3.googleusercontent.com/proxy/SD4Xy_jKMAb2Tm1aj62y0kPlQAL2qK8kjVgsqK71WRFB2nwF6_BEwCriSkztelcNXNPbZaViP8mKfPZ5G7Bsdp5kqa5tqwKci5YawRuDXBStC8DWIp7n_LmGNw') }}" alt="Jaundzervitephoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-</figure>
-</div>
-<div class="zoom">
-<figure>
-<figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-<img src="{{ url('https://viesunamiem.lv/content/images/object/56980.jpg') }}" alt="Karumniekiphoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-</figure>
-</div>
-<div class="zoom">
-<figure>
-  <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-<img src="{{ url('https://viesunamiem.lv/content/images/object/54702.jpg') }}" alt="Vecmuizaphoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-</figure>
-</div>
-<div class="zoom">
-<figure>
-  <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-<img src="{{ url('https://viesunamiem.lv/content/images/object/53082.jpg') }}" alt="Agavephoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-</figure>
-</div>
-<div class="zoom">
-<figure>
-  <figcaption>{{ $accommodation->accommodation_name }}</figcaption>
-<img src="{{ url('https://www.celotajs.lv/g/Accomm/Latvia/Kurzeme/668/IMG_9921.JPG?size=640') }}" alt="Ventspilsphoto" style="width:180px" style="height:90px">
-<figcaption>{{ $accommodation->accommodation_price }}<p>EUR</p></figcaption>
-<button id="view" class="button"><span>View</span></button>
-</figure>
-</div>
 </div>
 <td>
 </td>
 @endforeach
 @endif
+<script>
+    function showAccommodations(accommodationID) {
+        window.location.href="/accommodation/"+accommodationID+"/show";
+    }
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+      $("#nameid").select2({
+            placeholder: "Select a City",
+            allowClear: true
+        });
+        $("#nameid1").select2({
+              placeholder: "Select a Type",
+              allowClear: true
+          });
+</script>
+
 </body>
 @endsection
+
